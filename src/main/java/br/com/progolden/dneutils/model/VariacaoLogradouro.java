@@ -13,16 +13,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package br.com.progolden.dneutils;
+package br.com.progolden.dneutils.model;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name="dne_var_log")
+@Table(name="dne_var_log")
+public class VariacaoLogradouro implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	public VariacaoLogradouro() {}
+
 }
