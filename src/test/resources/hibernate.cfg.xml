@@ -38,6 +38,9 @@
 		<mapping class="br.com.progolden.dneutils.model.Logradouro" />
 		<mapping class="br.com.progolden.dneutils.model.Pais" />
 		<mapping class="br.com.progolden.dneutils.model.UnidadeOperacional" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoBairro" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoLocalidade" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoLogradouro" />
 		
 	</session-factory>
 </hibernate-configuration>

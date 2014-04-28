@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_var_bai")
@@ -26,6 +31,42 @@ public class VariacaoBairro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="bai_nu")
+	@ManyToOne(targetEntity=Bairro.class, fetch=FetchType.EAGER, optional=false)
+	private Bairro bairro;
+
+	@Id
+	@Column(name="vdb_nu", nullable=false)
+	private Long ordem;
+
+	@Column(name="vdb_tx", length=72, nullable=false)
+	private String denominacao;
+	
 	public VariacaoBairro() {}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	public Long getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(Long ordem) {
+		this.ordem = ordem;
+	}
+
+	public String getDenominacao() {
+		return denominacao;
+	}
+
+	public void setDenominacao(String denominacao) {
+		this.denominacao = denominacao;
+	}
 
 }

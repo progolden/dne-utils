@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_var_log")
@@ -26,6 +31,62 @@ public class VariacaoLogradouro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="log_nu")
+	@ManyToOne(targetEntity=Logradouro.class, fetch=FetchType.EAGER, optional=false)
+	private Logradouro logradouro;
+
+	@Id
+	@Column(name="vlo_nu", nullable=false)
+	private Long ordem;
+
+	@Column(name="tlo_tx", length=36, nullable=false)
+	private String tipo;
+
+	@Column(name="vlo_tx", length=150, nullable=false)
+	private String denominacao;
+	
+	
 	public VariacaoLogradouro() {}
+
+
+	public Logradouro getLogradouro() {
+		return logradouro;
+	}
+
+
+	public void setLogradouro(Logradouro logradouro) {
+		this.logradouro = logradouro;
+	}
+
+
+	public Long getOrdem() {
+		return ordem;
+	}
+
+
+	public void setOrdem(Long ordem) {
+		this.ordem = ordem;
+	}
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
+	public String getDenominacao() {
+		return denominacao;
+	}
+
+
+	public void setDenominacao(String denominacao) {
+		this.denominacao = denominacao;
+	}
 
 }

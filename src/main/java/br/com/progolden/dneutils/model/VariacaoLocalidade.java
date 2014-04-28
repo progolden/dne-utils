@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_var_loc")
@@ -26,6 +31,42 @@ public class VariacaoLocalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="loc_nu")
+	@ManyToOne(targetEntity=Localidade.class, fetch=FetchType.EAGER, optional=false)
+	private Localidade localidade;
+
+	@Id
+	@Column(name="val_nu", nullable=false)
+	private Long ordem;
+
+	@Column(name="val_tx", length=72, nullable=false)
+	private String denominacao;
+	
 	public VariacaoLocalidade() {}
+
+	public Localidade getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(Localidade localidade) {
+		this.localidade = localidade;
+	}
+
+	public Long getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(Long ordem) {
+		this.ordem = ordem;
+	}
+
+	public String getDenominacao() {
+		return denominacao;
+	}
+
+	public void setDenominacao(String denominacao) {
+		this.denominacao = denominacao;
+	}
 
 }
