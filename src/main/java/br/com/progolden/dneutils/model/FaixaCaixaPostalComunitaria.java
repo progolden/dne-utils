@@ -15,8 +15,6 @@
  */
 package br.com.progolden.dneutils.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,9 +23,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.progolden.dneutils.abstractions.EntityIF;
+
 @Entity(name="dne_faixa_cpc")
 @Table(name="dne_faixa_cpc")
-public class FaixaCaixaPostalComunitaria implements Serializable {
+public class FaixaCaixaPostalComunitaria implements EntityIF {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,6 +67,39 @@ public class FaixaCaixaPostalComunitaria implements Serializable {
 
 	public void setNumeroFinal(String numeroFinal) {
 		this.numeroFinal = numeroFinal;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((caixaPostal == null) ? 0 : caixaPostal.hashCode());
+		result = prime * result
+				+ ((numeroInicial == null) ? 0 : numeroInicial.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FaixaCaixaPostalComunitaria other = (FaixaCaixaPostalComunitaria) obj;
+		if (caixaPostal == null) {
+			if (other.caixaPostal != null)
+				return false;
+		} else if (!caixaPostal.equals(other.caixaPostal))
+			return false;
+		if (numeroInicial == null) {
+			if (other.numeroInicial != null)
+				return false;
+		} else if (!numeroInicial.equals(other.numeroInicial))
+			return false;
+		return true;
 	}
 
 }

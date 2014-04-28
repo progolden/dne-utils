@@ -15,16 +15,16 @@
  */
 package br.com.progolden.dneutils.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.progolden.dneutils.abstractions.EntityIF;
+
 @Entity(name="dne_ect_pais")
 @Table(name="dne_ect_pais")
-public class Pais implements Serializable {
+public class Pais implements EntityIF {
 
 	private static final long serialVersionUID = 1L;
 
@@ -95,6 +95,39 @@ public class Pais implements Serializable {
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
+		result = prime
+				* result
+				+ ((siglaAlternativa == null) ? 0 : siglaAlternativa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pais other = (Pais) obj;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
+			return false;
+		if (siglaAlternativa == null) {
+			if (other.siglaAlternativa != null)
+				return false;
+		} else if (!siglaAlternativa.equals(other.siglaAlternativa))
+			return false;
+		return true;
 	}
 
 }

@@ -15,8 +15,6 @@
  */
 package br.com.progolden.dneutils.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,9 +23,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.progolden.dneutils.abstractions.EntityIF;
+
 @Entity(name="dne_num_sec")
 @Table(name="dne_num_sec")
-public class FaixaSeccionamento implements Serializable {
+public class FaixaSeccionamento implements EntityIF {
 
 	private static final long serialVersionUID = 1L;
 
@@ -84,6 +84,49 @@ public class FaixaSeccionamento implements Serializable {
 
 	public void setParidade(char paridade) {
 		this.paridade = paridade;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result
+				+ ((numeroFinal == null) ? 0 : numeroFinal.hashCode());
+		result = prime * result
+				+ ((numeroInicial == null) ? 0 : numeroInicial.hashCode());
+		result = prime * result + paridade;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FaixaSeccionamento other = (FaixaSeccionamento) obj;
+		if (logradouro == null) {
+			if (other.logradouro != null)
+				return false;
+		} else if (!logradouro.equals(other.logradouro))
+			return false;
+		if (numeroFinal == null) {
+			if (other.numeroFinal != null)
+				return false;
+		} else if (!numeroFinal.equals(other.numeroFinal))
+			return false;
+		if (numeroInicial == null) {
+			if (other.numeroInicial != null)
+				return false;
+		} else if (!numeroInicial.equals(other.numeroInicial))
+			return false;
+		if (paridade != other.paridade)
+			return false;
+		return true;
 	}
 
 }

@@ -15,8 +15,6 @@
  */
 package br.com.progolden.dneutils.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,9 +23,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.progolden.dneutils.abstractions.EntityIF;
+
 @Entity(name="dne_faixa_bairro")
 @Table(name="dne_faixa_bairro")
-public class FaixaCEPBairro implements Serializable {
+public class FaixaCEPBairro implements EntityIF {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,6 +67,38 @@ public class FaixaCEPBairro implements Serializable {
 
 	public void setCepFinal(String cepFinal) {
 		this.cepFinal = cepFinal;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
+		result = prime * result
+				+ ((cepInicial == null) ? 0 : cepInicial.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FaixaCEPBairro other = (FaixaCEPBairro) obj;
+		if (bairro == null) {
+			if (other.bairro != null)
+				return false;
+		} else if (!bairro.equals(other.bairro))
+			return false;
+		if (cepInicial == null) {
+			if (other.cepInicial != null)
+				return false;
+		} else if (!cepInicial.equals(other.cepInicial))
+			return false;
+		return true;
 	}
 
 }

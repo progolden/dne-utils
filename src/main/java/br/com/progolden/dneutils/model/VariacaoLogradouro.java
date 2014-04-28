@@ -15,8 +15,6 @@
  */
 package br.com.progolden.dneutils.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,9 +23,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.progolden.dneutils.abstractions.EntityIF;
+
 @Entity(name="dne_var_log")
 @Table(name="dne_var_log")
-public class VariacaoLogradouro implements Serializable {
+public class VariacaoLogradouro implements EntityIF {
 
 	private static final long serialVersionUID = 1L;
 
@@ -87,6 +87,53 @@ public class VariacaoLogradouro implements Serializable {
 
 	public void setDenominacao(String denominacao) {
 		this.denominacao = denominacao;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((denominacao == null) ? 0 : denominacao.hashCode());
+		result = prime * result
+				+ ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result + ((ordem == null) ? 0 : ordem.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VariacaoLogradouro other = (VariacaoLogradouro) obj;
+		if (denominacao == null) {
+			if (other.denominacao != null)
+				return false;
+		} else if (!denominacao.equals(other.denominacao))
+			return false;
+		if (logradouro == null) {
+			if (other.logradouro != null)
+				return false;
+		} else if (!logradouro.equals(other.logradouro))
+			return false;
+		if (ordem == null) {
+			if (other.ordem != null)
+				return false;
+		} else if (!ordem.equals(other.ordem))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		return true;
 	}
 
 }
