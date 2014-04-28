@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_faixa_cpc")
@@ -26,6 +31,42 @@ public class FaixaCaixaPostalComunitaria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="cpc_nu")
+	@ManyToOne(targetEntity=CaixaPostalComunitaria.class, fetch=FetchType.EAGER, optional=false)
+	private CaixaPostalComunitaria caixaPostal;
+
+	@Id
+	@Column(name="cpc_ini", length=6, nullable=false)
+	private String numeroInicial;
+
+	@Column(name="cpc_fim", length=8, nullable=false)
+	private String numeroFinal;
+	
 	public FaixaCaixaPostalComunitaria() {}
+
+	public CaixaPostalComunitaria getCaixaPostal() {
+		return caixaPostal;
+	}
+
+	public void setCaixaPostal(CaixaPostalComunitaria caixaPostal) {
+		this.caixaPostal = caixaPostal;
+	}
+
+	public String getNumeroInicial() {
+		return numeroInicial;
+	}
+
+	public void setNumeroInicial(String numeroInicial) {
+		this.numeroInicial = numeroInicial;
+	}
+
+	public String getNumeroFinal() {
+		return numeroFinal;
+	}
+
+	public void setNumeroFinal(String numeroFinal) {
+		this.numeroFinal = numeroFinal;
+	}
 
 }

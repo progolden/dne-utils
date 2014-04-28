@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_faixa_bairro")
@@ -26,6 +31,42 @@ public class FaixaCEPBairro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="bai_nu")
+	@ManyToOne(targetEntity=Bairro.class, fetch=FetchType.EAGER, optional=false)
+	private Bairro bairro;
+	
+	@Id
+	@Column(name="fcb_cep_ini", length=8, nullable=false)
+	private String cepInicial;
+
+	@Column(name="fcb_cep_fim", length=8, nullable=true)
+	private String cepFinal;
+	
 	public FaixaCEPBairro() {}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCepInicial() {
+		return cepInicial;
+	}
+
+	public void setCepInicial(String cepInicial) {
+		this.cepInicial = cepInicial;
+	}
+
+	public String getCepFinal() {
+		return cepFinal;
+	}
+
+	public void setCepFinal(String cepFinal) {
+		this.cepFinal = cepFinal;
+	}
 
 }

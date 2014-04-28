@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_unid_oper")
@@ -26,6 +31,120 @@ public class UnidadeOperacional implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name="uop_nu", nullable=false)
+	private Long id;
+
+	@Column(name="ufe_sg", length=2, nullable=false)
+	private String estado;
+
+	@Column(name="uop_no", length=100, nullable=false)
+	private String nome;
+
+	@Column(name="uop_endereco", length=100, nullable=false)
+	private String endereco;
+
+	@Column(name="cep", length=8, nullable=false)
+	private String cep;
+
+	@Column(name="uop_in_cp", nullable=false)
+	private char indicadorCaixaPostal;
+
+	@Column(name="uop_no_abrev", length=72, nullable=true)
+	private String abreviatura;
+	
+	@JoinColumn(name="loc_nu")
+	@ManyToOne(targetEntity=Localidade.class, fetch=FetchType.EAGER, optional=false)
+	private Localidade localidade;
+
+	@JoinColumn(name="bai_nu")
+	@ManyToOne(targetEntity=Bairro.class, fetch=FetchType.EAGER, optional=false)
+	private Bairro bairro;
+
+	@JoinColumn(name="log_nu")
+	@ManyToOne(targetEntity=Logradouro.class, fetch=FetchType.EAGER, optional=true)
+	private Logradouro logradouro;
+	
 	public UnidadeOperacional() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public char getIndicadorCaixaPostal() {
+		return indicadorCaixaPostal;
+	}
+
+	public void setIndicadorCaixaPostal(char indicadorCaixaPostal) {
+		this.indicadorCaixaPostal = indicadorCaixaPostal;
+	}
+
+	public String getAbreviatura() {
+		return abreviatura;
+	}
+
+	public void setAbreviatura(String abreviatura) {
+		this.abreviatura = abreviatura;
+	}
+
+	public Localidade getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(Localidade localidade) {
+		this.localidade = localidade;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	public Logradouro getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(Logradouro logradouro) {
+		this.logradouro = logradouro;
+	}
 
 }

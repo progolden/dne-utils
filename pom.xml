@@ -89,7 +89,7 @@
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-log4j12</artifactId>
 		<version>1.7.7</version>
-		<scoep>test</scoep>
+		<scope>test</scope>
 	</dependency>
   </dependencies>
 </project>

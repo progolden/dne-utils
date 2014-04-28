@@ -26,7 +26,18 @@
 		<property name="hibernate.cache.use_query_cache">false</property>
 		
 		<mapping class="br.com.progolden.dneutils.model.Bairro" />
+		<mapping class="br.com.progolden.dneutils.model.CaixaPostalComunitaria" />
+		<mapping class="br.com.progolden.dneutils.model.ClienteGrande" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCaixaPostalComunitaria" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCaixaPostalUOP" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPBairro" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPEstado" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPLocalidade" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaSeccionamento" />
 		<mapping class="br.com.progolden.dneutils.model.Localidade" />
+		<mapping class="br.com.progolden.dneutils.model.Logradouro" />
+		<mapping class="br.com.progolden.dneutils.model.Pais" />
+		<mapping class="br.com.progolden.dneutils.model.UnidadeOperacional" />
 		
 	</session-factory>
 </hibernate-configuration>

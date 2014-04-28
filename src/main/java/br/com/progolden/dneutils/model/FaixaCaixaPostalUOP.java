@@ -17,7 +17,12 @@ package br.com.progolden.dneutils.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name="dne_faixa_uop")
@@ -26,6 +31,42 @@ public class FaixaCaixaPostalUOP implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@JoinColumn(name="uop_nu")
+	@ManyToOne(targetEntity=UnidadeOperacional.class, fetch=FetchType.EAGER, optional=false)
+	private UnidadeOperacional unidadeOperacional;
+
+	@Id
+	@Column(name="fnc_inicial", nullable=false)
+	private Long numeroInicial;
+
+	@Column(name="fnc_final", nullable=false)
+	private Long numeroFinal;
+	
 	public FaixaCaixaPostalUOP() {}
+
+	public UnidadeOperacional getUnidadeOperacional() {
+		return unidadeOperacional;
+	}
+
+	public void setUnidadeOperacional(UnidadeOperacional unidadeOperacional) {
+		this.unidadeOperacional = unidadeOperacional;
+	}
+
+	public Long getNumeroInicial() {
+		return numeroInicial;
+	}
+
+	public void setNumeroInicial(Long numeroInicial) {
+		this.numeroInicial = numeroInicial;
+	}
+
+	public Long getNumeroFinal() {
+		return numeroFinal;
+	}
+
+	public void setNumeroFinal(Long numeroFinal) {
+		this.numeroFinal = numeroFinal;
+	}
 
 }
