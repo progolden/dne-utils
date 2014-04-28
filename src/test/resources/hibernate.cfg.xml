@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "
+	http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="org.hibernate">true</property>
+		
+		<property name="connection.url">jdbc:mysql://localhost/dne_test</property>		
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		
+		<!-- Configuração Propriedades Hibernate -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+		
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.order_updates">true</property>
+		<property name="hibernate.max_fetch_depth">6</property>
+		<property name="hibernate.transaction.auto_close_session">false</property>
+		<!-- Cache configurations -->
+		<property name="hibernate.cache.use_query_cache">false</property>
+		
+		<mapping class="br.com.progolden.dneutils.model.Bairro" />
+		<mapping class="br.com.progolden.dneutils.model.Localidade" />
+		
+	</session-factory>
+</hibernate-configuration>
