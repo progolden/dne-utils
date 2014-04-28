@@ -37,10 +37,10 @@ public class FaixaCaixaPostalComunitaria implements Serializable {
 	private CaixaPostalComunitaria caixaPostal;
 
 	@Id
-	@Column(name="cpc_ini", length=6, nullable=false)
+	@Column(name="cpc_inicial", length=6, nullable=false)
 	private String numeroInicial;
 
-	@Column(name="cpc_fim", length=8, nullable=false)
+	@Column(name="cpc_final", length=8, nullable=false)
 	private String numeroFinal;
 	
 	public FaixaCaixaPostalComunitaria() {}

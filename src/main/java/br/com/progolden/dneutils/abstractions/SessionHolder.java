@@ -13,16 +13,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package br.com.progolden.dneutils;
+package br.com.progolden.dneutils.abstractions;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+import org.hibernate.Session;
+
+public interface SessionHolder {
+	public Session getSession();
+
+	public void returnSession(Session session);
+
+	public void forceSessionClose(Session session);
 }

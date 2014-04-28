@@ -13,18 +13,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package br.com.progolden.dneutils;
+package br.com.progolden.dneutils.abstractions;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.hibernate.SessionFactory;
-import org.junit.Test;
-
-public class DatabaseTest {
-	
-	@Test
-	public void testDBConnection() {
-		SessionFactory factory = HibernateSessionFactory.getInstance();
-		assertNotNull("Factory de sessao de banco nao pode ser null.", factory);
-	}
+public interface RetryableDatabaseOperation extends DatabaseOperation {
+	public boolean isRetryable(Exception e);
 }

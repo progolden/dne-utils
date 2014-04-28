@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "
+	http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="br.com.progolden.dneutils.model.Bairro" />
+		<mapping class="br.com.progolden.dneutils.model.CaixaPostalComunitaria" />
+		<mapping class="br.com.progolden.dneutils.model.ClienteGrande" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCaixaPostalComunitaria" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCaixaPostalUOP" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPBairro" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPEstado" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaCEPLocalidade" />
+		<mapping class="br.com.progolden.dneutils.model.FaixaSeccionamento" />
+		<mapping class="br.com.progolden.dneutils.model.Localidade" />
+		<mapping class="br.com.progolden.dneutils.model.Logradouro" />
+		<mapping class="br.com.progolden.dneutils.model.Pais" />
+		<mapping class="br.com.progolden.dneutils.model.UnidadeOperacional" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoBairro" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoLocalidade" />
+		<mapping class="br.com.progolden.dneutils.model.VariacaoLogradouro" />
+	</session-factory>
+</hibernate-configuration>
