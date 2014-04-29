@@ -4,7 +4,7 @@
 
   <groupId>br.com.progolden</groupId>
   <artifactId>DNEUtils</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0-Beta1</version>
   <packaging>jar</packaging>
 
   <name>DNEUtils</name>
