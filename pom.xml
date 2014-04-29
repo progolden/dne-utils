@@ -3,7 +3,7 @@
 
   <groupId>br.com.progolden</groupId>
   <artifactId>dne-utils</artifactId>
-  <version>1.0.0-beta3-SNAPSHOT</version>
+  <version>1.0.0-beta3</version>
   <packaging>jar</packaging>
 
   <name>DNE Utilities</name>
@@ -23,8 +23,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:renatorroliveira@github.com:progolden/dne-utils.git</connection>
-    <developerConnection>scm:git:renatorroliveira@github.com:progolden/dne-utils.git</developerConnection>
+    <connection>scm:git:git@github.com:progolden/dne-utils.git</connection>
+    <developerConnection>scm:git:git@github.com:progolden/dne-utils.git</developerConnection>
     <url>https://github.com/progolden/dne-utils</url>
   </scm>
   
