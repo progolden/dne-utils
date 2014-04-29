@@ -23,8 +23,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:https://github.com/progolden/dne-utils.git</connection>
-    <developerConnection>scm:git:https://github.com/progolden/dne-utils.git</developerConnection>
+    <connection>scm:git:renatorroliveira@github.com:progolden/dne-utils.git</connection>
+    <developerConnection>scm:git:renatorroliveira@github.com:progolden/dne-utils.git</developerConnection>
     <url>https://github.com/progolden/dne-utils</url>
   </scm>
   
@@ -100,7 +100,7 @@
         <configuration>
          	<mavenExecutorId>forked-path</mavenExecutorId>
 	        <useReleaseProfile>false</useReleaseProfile>
-	        <arguments>-Dgpg.passphrase=${gpg.passphrase} -Psonatype-oss-release</arguments>
+	        <arguments>-Dgpg.passphrase=${gpgPassphrase} -Psonatype-oss-release</arguments>
         </configuration>
       </plugin>
       <plugin>
