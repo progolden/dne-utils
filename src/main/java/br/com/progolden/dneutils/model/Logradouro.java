@@ -44,7 +44,7 @@ public class Logradouro implements EntityIF {
 	@Column(name="log_complemento", length=100, nullable=true)
 	private String complemento;
 
-	@Column(name="cep", length=8, nullable=false)
+	@Column(name="cep", length=8, nullable=false, unique=true)
 	private String cep;
 
 	@Column(name="tlo_tx", length=36, nullable=false)

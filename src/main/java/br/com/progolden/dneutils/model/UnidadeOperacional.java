@@ -44,7 +44,7 @@ public class UnidadeOperacional implements EntityIF {
 	@Column(name="uop_endereco", length=100, nullable=false)
 	private String endereco;
 
-	@Column(name="cep", length=8, nullable=false)
+	@Column(name="cep", length=8, nullable=false, unique=true)
 	private String cep;
 
 	@Column(name="uop_in_cp", nullable=false)

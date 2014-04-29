@@ -44,7 +44,7 @@ public class ClienteGrande implements EntityIF {
 	@Column(name="gru_endereco", length=100, nullable=false)
 	private String endereco;
 
-	@Column(name="cep", length=8, nullable=false)
+	@Column(name="cep", length=8, nullable=false, unique=true)
 	private String cep;
 
 	@Column(name="gru_no_abrev", length=72, nullable=true)

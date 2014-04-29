@@ -52,7 +52,7 @@ public class Localidade implements EntityIF {
 	@Column(name="loc_no_abrev", length=36, nullable=true)
 	private String abreviacao;
 
-	@Column(name="cep", length=8, nullable=true)
+	@Column(name="cep", length=8, nullable=true, unique=true)
 	private String cep;
 
 	@Column(name="loc_in_sit", length=1, nullable=false)
