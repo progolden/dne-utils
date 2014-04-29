@@ -27,36 +27,23 @@ public class DNEHibernateSessionFactory {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DNEHibernateSessionFactory.class);
 	
-	/** The factory. */
-	private static SessionFactory factory;
-
-	public static SessionFactory getInstance() {
-		if (DNEHibernateSessionFactory.factory == null) {
-			LOG.debug("Carregando Hibernate pelo arquivo: hibernate.cfg.xml");
+	private SessionFactory customFactory;
+	
+	public DNEHibernateSessionFactory(String configFile) {
+		if ((configFile == null) || (configFile.equals(""))) {
+			LOG.info("Inicializando a DNE sem conexão com o banco de dados.");
+			this.customFactory = null;
+		} else {
+			LOG.debug("Carregando Hibernate pelo arquivo: "+configFile);
 			Configuration config = new Configuration();
 			config
 				.configure("dne.hibernate.mappings.xml")
-				.configure("hibernate.cfg.xml")
+				.configure(configFile)
 			;
-			ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder().applySettings(config
-				.getProperties());
-			DNEHibernateSessionFactory.factory = config.buildSessionFactory(serviceRegistryBuilder.buildServiceRegistry());
+			ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder()
+				.applySettings(config.getProperties());
+			this.customFactory = config.buildSessionFactory(serviceRegistryBuilder.buildServiceRegistry());
 		}
-		return DNEHibernateSessionFactory.factory;
-	}
-	
-	private final SessionFactory customFactory;
-	
-	public DNEHibernateSessionFactory(String configFile) {
-		LOG.debug("Carregando Hibernate pelo arquivo: "+configFile);
-		Configuration config = new Configuration();
-		config
-			.configure("dne.hibernate.mappings.xml")
-			.configure(configFile)
-		;
-		ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder()
-			.applySettings(config.getProperties());
-		this.customFactory = config.buildSessionFactory(serviceRegistryBuilder.buildServiceRegistry());
 	}
 	
 	public SessionFactory getFactory() {
@@ -65,7 +52,10 @@ public class DNEHibernateSessionFactory {
 	
 	@PreDestroy
 	public void closeFactory() {
-		this.customFactory.close();
+		if (this.customFactory != null) {
+			this.customFactory.close();
+			this.customFactory = null;
+		}
 	}
 
 }

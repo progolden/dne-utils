@@ -32,11 +32,6 @@ public class DNEUtils {
 
 	private final SessionFactory factory;
 	
-	@Deprecated
-	public DNEUtils() {
-		this.factory = DNEHibernateSessionFactory.getInstance();
-	}
-
 	public DNEUtils(SessionFactory factory) {
 		this.factory = factory;
 	}
@@ -54,36 +49,41 @@ public class DNEUtils {
 		if (cep.length() != 8)
 			return CEPStatus.INEXISTENTE;
 		
-		GenericDAO dao = new GenericDAO(this.factory);
-		Long count;
-		
-		// Buscando CEP de Localidade.
-		count = this.countByCEP(cep, dao, Localidade.class);
-		if (count > 0L)
+		if (this.factory != null) {
+			GenericDAO dao = new GenericDAO(this.factory);
+			Long count;
+			
+			// Buscando CEP de Localidade.
+			count = this.countByCEP(cep, dao, Localidade.class);
+			if (count > 0L)
+				return CEPStatus.LOCALIDADE;
+	
+			// Buscando CEP de Logradouro.
+			count = this.countByCEP(cep, dao, Logradouro.class);
+			if (count > 0L)
+				return CEPStatus.LOGRADOURO;
+	
+			// Buscando CEP de Grande Usuario.
+			count = this.countByCEP(cep, dao, ClienteGrande.class);
+			if (count > 0L)
+				return CEPStatus.CLIENTE_GRANDE;
+	
+			// Buscando CEP de Unidade Operacional.
+			count = this.countByCEP(cep, dao, UnidadeOperacional.class);
+			if (count > 0L)
+				return CEPStatus.UNIDADE_OPERACIONAL;
+	
+			// Buscando CEP de Caixa Postal Comunitaria.
+			count = this.countByCEP(cep, dao, CaixaPostalComunitaria.class);
+			if (count > 0L)
+				return CEPStatus.CAIXA_POSTAL_COMUNITARIA;
+	
+			// O CEP nao existe.
+			return CEPStatus.INEXISTENTE;
+		} else {
+			// Se a conexão com o banco estiver indisponivel
 			return CEPStatus.LOCALIDADE;
-
-		// Buscando CEP de Logradouro.
-		count = this.countByCEP(cep, dao, Logradouro.class);
-		if (count > 0L)
-			return CEPStatus.LOGRADOURO;
-
-		// Buscando CEP de Grande Usuario.
-		count = this.countByCEP(cep, dao, ClienteGrande.class);
-		if (count > 0L)
-			return CEPStatus.CLIENTE_GRANDE;
-
-		// Buscando CEP de Unidade Operacional.
-		count = this.countByCEP(cep, dao, UnidadeOperacional.class);
-		if (count > 0L)
-			return CEPStatus.UNIDADE_OPERACIONAL;
-
-		// Buscando CEP de Caixa Postal Comunitaria.
-		count = this.countByCEP(cep, dao, CaixaPostalComunitaria.class);
-		if (count > 0L)
-			return CEPStatus.CAIXA_POSTAL_COMUNITARIA;
-
-		// O CEP nao existe.
-		return CEPStatus.INEXISTENTE;
+		}
 	}
 
 	private Long countByCEP(String cep, GenericDAO dao, Class<? extends EntityIF> entityClass) {
