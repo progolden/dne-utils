@@ -34,15 +34,22 @@ public class DNEHibernateSessionFactory {
 			LOG.info("Inicializando a DNE sem conexão com o banco de dados.");
 			this.customFactory = null;
 		} else {
-			LOG.debug("Carregando Hibernate pelo arquivo: "+configFile);
-			Configuration config = new Configuration();
-			config
-				.configure("dne.hibernate.mappings.xml")
-				.configure(configFile)
-			;
-			ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder()
-				.applySettings(config.getProperties());
-			this.customFactory = config.buildSessionFactory(serviceRegistryBuilder.buildServiceRegistry());
+			try {
+				LOG.debug("Carregando DNE no Hibernate pelo arquivo: "+configFile);
+				Configuration config = new Configuration();
+				config
+					.configure("dne.hibernate.mappings.xml")
+					.configure(configFile)
+					;
+				ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder()
+					.applySettings(config.getProperties());
+				this.customFactory = config.buildSessionFactory(serviceRegistryBuilder.buildServiceRegistry());
+			} catch (Exception ex) {
+				LOG.error("Um erro ocorreu ao tentar estabelecer a conexão com a DNE pelo arquivo: "
+					+configFile,ex);
+				LOG.info("Inicializando a DNE sem conexão com o banco de dados devido à erros.");
+				this.customFactory = null;
+			}
 		}
 	}
 	
