@@ -1,14 +1,50 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.com.progolden</groupId>
-  <artifactId>DNEUtils</artifactId>
-  <version>1.0.0-Beta2</version>
+  <artifactId>dne-utils</artifactId>
+  <version>1.0.0-beta3</version>
   <packaging>jar</packaging>
 
-  <name>DNEUtils</name>
+  <name>DNE Utilities</name>
+  <description>Biblioteca de utilitários para trabalhar com a base e-DNE dos Correios.</description>
   <url>https://github.com/progolden/dne-utils</url>
+  <organization>
+  	<name>ProGolden Technology Solutions</name>
+  	<url>http://www.progolden.com.br/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/progolden/dne-utils.git</connection>
+    <developerConnection>scm:git:https://github.com/progolden/dne-utils.git</developerConnection>
+    <url>https://github.com/progolden/dne-utils</url>
+  </scm>
+  
+  <developers>
+  	<developer>
+  		<email>renatorroliveira@gmail.com</email>
+  		<name>Renato R. R. de Oliveira</name>
+  		<organization>ProGolden Technology Solutions</organization>
+  		<organizationUrl>http://www.progolden.com.br/</organizationUrl>
+  		<roles>
+  			<role>CTO</role>
+  		</roles>
+  	</developer>
+  </developers>
+  
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,11 +82,34 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+         	<mavenExecutorId>forked-path</mavenExecutorId>
+	        <useReleaseProfile>false</useReleaseProfile>
+	        <arguments>-Dgpg.passphrase=${gpg.passphrase} -Psonatype-oss-release</arguments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12.4</version>
-        <!-- <configuration>
+        <configuration>
           <skip>true</skip>
-        </configuration> -->
+        </configuration>
       </plugin>
     </plugins>
   </build>
