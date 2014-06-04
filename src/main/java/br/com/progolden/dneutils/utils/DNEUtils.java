@@ -19,6 +19,8 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.com.progolden.dneutils.abstractions.EntityIF;
 import br.com.progolden.dneutils.abstractions.GenericDAO;
@@ -30,6 +32,8 @@ import br.com.progolden.dneutils.model.UnidadeOperacional;
 
 public class DNEUtils {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DNEUtils.class);
+	
 	private final SessionFactory factory;
 	
 	public DNEUtils(SessionFactory factory) {
@@ -39,6 +43,7 @@ public class DNEUtils {
 	public CEPStatus validarCEP(String cep) {
 		if (cep == null)
 			return CEPStatus.INEXISTENTE;
+		LOGGER.debug("Tratando CEP para verificação...");
 		cep = cep
 			.replaceAll("-", "")
 			.replaceAll("\\.", "")
@@ -46,9 +51,11 @@ public class DNEUtils {
 			.replaceAll("/", "")
 			.trim()
 		;
+		LOGGER.debug("Verificando o CEP: "+cep);
 		if (cep.length() != 8)
 			return CEPStatus.INEXISTENTE;
 		
+		LOGGER.debug("CEP formatado corretamente, verificando banco de CEPs...");
 		if (this.factory != null) {
 			GenericDAO dao = new GenericDAO(this.factory);
 			Long count;
@@ -81,6 +88,7 @@ public class DNEUtils {
 			// O CEP nao existe.
 			return CEPStatus.INEXISTENTE;
 		} else {
+			LOGGER.debug("Banco de CEPs desativado.");
 			// Se a conexão com o banco estiver indisponivel
 			return CEPStatus.LOCALIDADE;
 		}
@@ -89,10 +97,12 @@ public class DNEUtils {
 	private Long countByCEP(String cep, GenericDAO dao, Class<? extends EntityIF> entityClass) {
 		Criteria criteria;
 		Long count;
+		LOGGER.debug("Contando ocorrências do CEP "+cep+" na tabela "+entityClass.getCanonicalName());
 		criteria = dao.newCriteria(entityClass);
 		criteria.add(Restrictions.eq("cep", cep));
 		criteria.setProjection(Projections.rowCount());
 		count = dao.uniqueByCriteria(criteria, Long.class);
+		LOGGER.debug("Contagem realizada: "+String.valueOf(count));
 		return count;
 	}
 }
