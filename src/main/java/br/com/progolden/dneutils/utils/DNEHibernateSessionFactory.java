@@ -53,6 +53,16 @@ public class DNEHibernateSessionFactory {
 		}
 	}
 	
+	public static void configure(Configuration config) {
+		try {
+			LOG.debug("Configurando a DNE no Hibernate pelo arquivo: dne.hibernate.mappings.xml");
+			config.configure("dne.hibernate.mappings.xml");
+		} catch (Throwable ex) {
+			LOG.error("Erro ao tentar configurar o BD da DNE.", ex);
+			LOG.info("Banco de dados da DNE não configurado devido à erros.");
+		}
+	}
+	
 	public SessionFactory getFactory() {
 		return this.customFactory;
 	}

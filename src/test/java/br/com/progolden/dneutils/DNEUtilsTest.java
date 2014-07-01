@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.progolden.dneutils.abstractions.GenericDAO;
 import br.com.progolden.dneutils.utils.CEPStatus;
 import br.com.progolden.dneutils.utils.DNEUtils;
 
@@ -15,7 +16,7 @@ public class DNEUtilsTest {
 	
 	@Before
 	public void setupTests() {
-		this.utils = new DNEUtils(HibernateSessionFactory.getInstance());
+		this.utils = new DNEUtils(new GenericDAO(HibernateSessionFactory.getInstance()));
 	}
 	
 	@After

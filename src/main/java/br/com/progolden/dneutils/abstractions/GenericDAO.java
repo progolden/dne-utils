@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @SuppressWarnings("unchecked")
-public class GenericDAO implements SessionHolder {
+public class GenericDAO implements DAO {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(GenericDAO.class);
 	

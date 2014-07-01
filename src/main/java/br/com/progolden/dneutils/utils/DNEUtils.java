@@ -16,14 +16,13 @@
 package br.com.progolden.dneutils.utils;
 
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.progolden.dneutils.abstractions.DAO;
 import br.com.progolden.dneutils.abstractions.EntityIF;
-import br.com.progolden.dneutils.abstractions.GenericDAO;
 import br.com.progolden.dneutils.model.CaixaPostalComunitaria;
 import br.com.progolden.dneutils.model.ClienteGrande;
 import br.com.progolden.dneutils.model.Localidade;
@@ -34,10 +33,10 @@ public class DNEUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DNEUtils.class);
 	
-	private final SessionFactory factory;
+	private final DAO dao;
 	
-	public DNEUtils(SessionFactory factory) {
-		this.factory = factory;
+	public DNEUtils(DAO dao) {
+		this.dao = dao;
 	}
 	
 	public CEPStatus validarCEP(String cep) {
@@ -56,32 +55,31 @@ public class DNEUtils {
 			return CEPStatus.INEXISTENTE;
 		
 		LOGGER.debug("CEP formatado corretamente, verificando banco de CEPs...");
-		if (this.factory != null) {
-			GenericDAO dao = new GenericDAO(this.factory);
+		if (this.dao != null) {
 			Long count;
 			
 			// Buscando CEP de Localidade.
-			count = this.countByCEP(cep, dao, Localidade.class);
+			count = this.countByCEP(cep, Localidade.class);
 			if (count > 0L)
 				return CEPStatus.LOCALIDADE;
 	
 			// Buscando CEP de Logradouro.
-			count = this.countByCEP(cep, dao, Logradouro.class);
+			count = this.countByCEP(cep, Logradouro.class);
 			if (count > 0L)
 				return CEPStatus.LOGRADOURO;
 	
 			// Buscando CEP de Grande Usuario.
-			count = this.countByCEP(cep, dao, ClienteGrande.class);
+			count = this.countByCEP(cep, ClienteGrande.class);
 			if (count > 0L)
 				return CEPStatus.CLIENTE_GRANDE;
 	
 			// Buscando CEP de Unidade Operacional.
-			count = this.countByCEP(cep, dao, UnidadeOperacional.class);
+			count = this.countByCEP(cep, UnidadeOperacional.class);
 			if (count > 0L)
 				return CEPStatus.UNIDADE_OPERACIONAL;
 	
 			// Buscando CEP de Caixa Postal Comunitaria.
-			count = this.countByCEP(cep, dao, CaixaPostalComunitaria.class);
+			count = this.countByCEP(cep, CaixaPostalComunitaria.class);
 			if (count > 0L)
 				return CEPStatus.CAIXA_POSTAL_COMUNITARIA;
 	
@@ -94,14 +92,14 @@ public class DNEUtils {
 		}
 	}
 
-	private Long countByCEP(String cep, GenericDAO dao, Class<? extends EntityIF> entityClass) {
+	private Long countByCEP(String cep, Class<? extends EntityIF> entityClass) {
 		Criteria criteria;
 		Long count;
 		LOGGER.debug("Contando ocorrências do CEP "+cep+" na tabela "+entityClass.getCanonicalName());
-		criteria = dao.newCriteria(entityClass);
+		criteria = this.dao.newCriteria(entityClass);
 		criteria.add(Restrictions.eq("cep", cep));
 		criteria.setProjection(Projections.rowCount());
-		count = dao.uniqueByCriteria(criteria, Long.class);
+		count = this.dao.uniqueByCriteria(criteria, Long.class);
 		LOGGER.debug("Contagem realizada: "+String.valueOf(count));
 		return count;
 	}
