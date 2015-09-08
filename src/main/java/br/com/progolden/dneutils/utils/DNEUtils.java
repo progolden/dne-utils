@@ -35,6 +35,7 @@ public class DNEUtils {
 	
 	private final DAO dao;
 	
+	protected DNEUtils() { this(null); }
 	public DNEUtils(DAO dao) {
 		this.dao = dao;
 	}
